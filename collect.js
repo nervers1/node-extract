@@ -54,14 +54,16 @@ drive_info.used = await drive.used()
 // console.log(JSON.stringify(drive_info, null, 2));
 // console.log('<-------------------------------------------');
 
-info.os = os_info;
-
-info.cpu = cpu_info;
-info.memory = mem_info;
-info.disk = drive_info;
+// info.os = os_info;
+// info.cpu = cpu_info;
+// info.memory = mem_info;
+// info.disk = drive_info;
 
 // console.log(JSON.stringify(info, null, 2));
 
 export default {
-  info
+  os: os_info,
+  cpu: cpu_info,
+  memory: mem_info,
+  disk: drive_info
 }
