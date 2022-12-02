@@ -16,23 +16,27 @@ const config = {
 // 쿼리 조회 테스트(현재시간)
 const timeStamp = 'select current_timestamp AT TIME ZONE \'Asia/Seoul\' as curr';
 
-const insertQuery = ``;
+const insertQuery = `insert into apx_matric_data (namespace, pods_name, data) values ($1, $2, $3)`;
 
 export const pool = new Pool(config);
 
 export const saveMatric = async (matric) => {
     const client = await pool.connect();
-    await client.query(timeStamp, (err, res) => {
-        if (err) {
-            console.error(err);
+    try {
+        await client.query(insertQuery, [matric.namespace, '', matric], (err, res) => {
+            if (err) {
+                console.error(err);
+                client.release();
+                return;
+            }
+            for (let row of res.rows) {
+                console.log(row);
+            }
             client.release();
-            return;
-        }
-        for (let row of res.rows) {
-            console.log(row);
-        }
-        client.release();
-    });
+        });
+    } catch (err) {
+        console.log(err);
+    }
 }
 
 
